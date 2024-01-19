@@ -4,8 +4,6 @@ import numpy as np
 import joblib
 from urllib.parse import quote
 
-from flask import Flask, request, render_template
-
 app = Flask(__name__)
 
 # Connect to MySQL using MySQL Connector
@@ -22,7 +20,7 @@ def connect_to_database():
     
     return db
 
-def create_table_if_not_exists():
+def create_table_if_not_exists(db):
     cursor = db.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS FormData (
@@ -43,8 +41,10 @@ def create_table_if_not_exists():
 # Load model and scaler outside of the request handling function
 model = joblib.load('model.joblib')
 scaler = joblib.load('scaler.joblib')
+
+# Initialize db outside of the functions to make it global
 db = connect_to_database()
-create_table_if_not_exists()
+create_table_if_not_exists(db)
 
 @app.route('/')
 def home():
@@ -52,6 +52,7 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    global db  # Declare db as global
     int_features = [int(x) for x in request.form.values()]
 
     try:
@@ -85,6 +86,7 @@ def predict():
 
 @app.route('/view_data', methods=['GET'])
 def view_data():
+    global db  # Declare db as global
     try:
         cursor = db.cursor()
         cursor.execute('SELECT * FROM FormData')
