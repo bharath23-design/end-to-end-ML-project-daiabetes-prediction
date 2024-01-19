@@ -12,7 +12,7 @@ def connect_to_database():
     encoded_password = quote(password)
     
     db = mysql.connector.connect(
-        host=''127.0.0.1'',
+        host='127.0.0.1',
         user='root',
         password=encoded_password,
         database='diabetes'
