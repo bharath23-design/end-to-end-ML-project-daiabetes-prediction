@@ -2,7 +2,8 @@ from flask import Flask, request, render_template
 import numpy as np
 import joblib
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='/path/to/your/templates')
+
 
 # Load model and scaler outside of the request handling function
 model = joblib.load('model.joblib')
