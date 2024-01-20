@@ -15,7 +15,8 @@ def connect_to_database():
         host='127.0.0.1',
         user='root',
         password=encoded_password,
-        database='diabetes'
+        database='diabetes',
+        port=3306
     )
     
     return db
