@@ -1,35 +1,119 @@
 <!DOCTYPE html>
-<html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>ML API</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ML API</title>
+    <style>
+        body {
+            font-family: 'Open Sans Condensed', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #2b4dff, #007bff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .form-container {
+            background-color: transparent; /* Set background to transparent */
+        }
+
+        .login {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 18px;
+            color: #28a745;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
- <div class="login">
-	<h1>Buy Predictor : From Social Network Ad </h1>
+    <div class="form-container">
+        <div class="login">
+            <h1>Diabetes Prediction</h1>
 
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="salary" placeholder="salary" required="required" />
-		<input type="text" name="age" placeholder="age" required="required" />
-		<input type="text" name="male" placeholder="male" required="required" /> 
+            <!-- Main Input For Receiving Query to our ML -->
+            <form action="{{ url_for('predict') }}" method="post">
+                <div class="form-group">
+                    <input type="number" class="form-control" name="Pregnancies" placeholder="Pregnancies" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="Glucose" placeholder="Glucose" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="BloodPressure" placeholder="Blood Pressure" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="SkinThickness" placeholder="Skin Thickness" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="Insulin" placeholder="Insulin" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="BMI" placeholder="BMI" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" name="Age" placeholder="Age" required="required" />
+                </div>
 
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-    </form>
+                <button type="submit" class="btn btn-primary btn-block">Predict</button>
+            </form>
 
-   <br>
-   <br>
-   {{ prediction_text }}
+            <br>
+            <br>
+            <p>{{ prediction_text }}</p>
 
- </div>
-
-
+            <!-- Button to view data -->
+            <form action="{{ url_for('view_data') }}" method="get">
+                <button type="submit" class="btn btn-secondary btn-block">View Data</button>
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>
