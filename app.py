@@ -13,7 +13,7 @@ scaler = joblib.load('scaler.joblib')
 def home():
     return render_template('index.html', prediction_text='')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     int_features = [int(x) for x in request.form.values()]
 
